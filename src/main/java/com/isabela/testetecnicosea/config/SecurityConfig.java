@@ -43,6 +43,7 @@ public class SecurityConfig {
                                 "/v3/api-docs.yaml"
                         ).permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/solicitations/**").permitAll() // ← temporário
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

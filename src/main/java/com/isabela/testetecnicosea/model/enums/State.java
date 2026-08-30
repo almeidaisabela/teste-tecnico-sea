@@ -5,7 +5,7 @@ import lombok.Getter;
 
 
 @Getter
-@Schema(enumAsRef = true, description = "Unidade Federativa do Brasil.")
+@Schema(enumAsRef = true, description = "Unidade Federativa do Brasil")
 public enum State {
     AC("Acre"),
     AL("Alagoas"),
