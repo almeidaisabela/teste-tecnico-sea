@@ -3,7 +3,7 @@ package com.isabela.testetecnicosea.model.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 
-@Schema(name = "UserResponse", description = "Dados retornados de um usuário")
+@Schema(name = "UserResponseDTO", description = "Dados retornados de um usuário")
 public record UserResponseDTO (
 
         @Schema(description = "Identificador único do usuário", example = "1")

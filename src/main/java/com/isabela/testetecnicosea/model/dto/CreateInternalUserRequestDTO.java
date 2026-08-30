@@ -1,34 +1,32 @@
 package com.isabela.testetecnicosea.model.dto;
 
+import com.isabela.testetecnicosea.model.enums.UserRole;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-
-@Schema(name = "UsersDTO", description = "Dados para cadastro de um novo usuário")
-public record UserRequestDTO(
-
-        @Schema(name = "Id", example = "1")
-        Long id,
+@Schema(name = "CreateInternalUserRequestDTO", description = "Dados para criação de usuário interno (ANALYST/ADMIN)")
+public record CreateInternalUserRequestDTO(
 
         @NotBlank(message = "O campo NOME é obrigatório.")
         @Size(max = 120, message = "O campo NOME excede o limite de 120 caracteres.")
-        @Schema(name = "name", example = "Ana Silva")
+        @Schema(example = "José Silva")
         String name,
 
         @NotBlank(message = "O campo EMAIL é obrigatório.")
+        @Email(message = "O campo EMAIL deve ser um e-mail válido.")
         @Size(max = 100, message = "O campo EMAIL excede o limite de 100 caracteres.")
-        @Schema(name = "email", example = "ana@gmail.com")
+        @Schema(example = "user@email.com")
         String email,
 
         @NotBlank(message = "O campo SENHA é obrigatório.")
-        @Size(max = 80, message = "O campo SENHA excede o limite de 80 caracteres.")
-        @Schema(name = "password", example = "ABC123")
-        String passwordHash,
+        @Size(min = 8, max = 80, message = "A SENHA deve ter entre 8 e 80 caracteres.")
+        @Schema(example = "senha123")
+        String password,
 
         @NotNull(message = "O campo PERFIL é obrigatório.")
-        @Schema(name = "role", example = "ADMIN")
-        String role
-
+        @Schema(example = "ADMIN")
+        UserRole role
 ) {}
