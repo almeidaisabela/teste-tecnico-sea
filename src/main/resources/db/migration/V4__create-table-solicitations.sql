@@ -19,7 +19,7 @@ CREATE TABLE solicitations (
            street VARCHAR(150),
            neighborhood VARCHAR(100),
            city VARCHAR(100),
-           state CHAR(2),
+           state VARCHAR(2),
 
            priority VARCHAR(10)
                CHECK (priority IN ('LOW', 'MEDIUM', 'HIGH')),
