@@ -8,6 +8,7 @@ import com.isabela.testetecnicosea.model.entity.Solicitation;
 import com.isabela.testetecnicosea.model.entity.User;
 import com.isabela.testetecnicosea.model.enums.Priority;
 import com.isabela.testetecnicosea.model.enums.SolicitationStatus;
+import com.isabela.testetecnicosea.model.enums.State;
 import com.isabela.testetecnicosea.model.mapper.SolicitationMapper;
 import com.isabela.testetecnicosea.repository.SolicitationRepository;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +65,7 @@ public class SolicitationService {
         solicitation.setStreet(adress.logradouro());
         solicitation.setNeighborhood(adress.bairro());
         solicitation.setCity(adress.localidade());
-        solicitation.setState(adress.uf());
+        solicitation.setState(State.valueOf(adress.uf()));
 
         if (solicitation.getCurrentStep() < 2) {
             solicitation.setCurrentStep(2);
@@ -166,7 +167,7 @@ public class SolicitationService {
         if (s.getStreet() == null || s.getStreet().isBlank()) errors.add("Street não preenchido (CEP inválido?)");
         if (s.getNeighborhood() == null || s.getNeighborhood().isBlank()) errors.add("Neighborhood não preenchido");
         if (s.getCity() == null || s.getCity().isBlank()) errors.add("City não preenchido");
-        if (s.getState() == null || s.getState().isBlank()) errors.add("State não preenchido");
+        if (s.getState() == null) errors.add("State não preenchido");
         if (s.getNumber() == null || s.getNumber().isBlank()) errors.add("Number não preenchido");
 
         if (s.getPriority() == null) errors.add("Priority não preenchido");

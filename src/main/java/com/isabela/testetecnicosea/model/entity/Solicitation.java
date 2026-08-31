@@ -3,6 +3,7 @@ package com.isabela.testetecnicosea.model.entity;
 import com.isabela.testetecnicosea.model.enums.Priority;
 import com.isabela.testetecnicosea.model.enums.ServiceType;
 import com.isabela.testetecnicosea.model.enums.SolicitationStatus;
+import com.isabela.testetecnicosea.model.enums.State;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -62,8 +63,9 @@ public class Solicitation {
     @Column(name = "city", length = 100)
     private String city;
 
-    @Column(name = "state", length = 2)
-    private String state;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state", nullable = false, length = 2)
+    private State state;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priority", length = 10)

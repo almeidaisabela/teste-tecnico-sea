@@ -3,6 +3,7 @@ package com.isabela.testetecnicosea.model.dto;
 import com.isabela.testetecnicosea.model.enums.Priority;
 import com.isabela.testetecnicosea.model.enums.ServiceType;
 import com.isabela.testetecnicosea.model.enums.SolicitationStatus;
+import com.isabela.testetecnicosea.model.enums.State;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
@@ -53,7 +54,7 @@ public record SolicitationResponseDTO(
         String city,
 
         @Schema(description = "UF, preenchida via consulta de CEP", example = "SP")
-        String state,
+        State state,
 
         @Schema(description = "Prioridade da solicitação", example = "MEDIUM")
         Priority priority,
