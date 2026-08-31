@@ -1,5 +1,7 @@
 package com.isabela.testetecnicosea.controller;
 
+import com.isabela.testetecnicosea.model.dto.AnalystCoverageRequestDTO;
+import com.isabela.testetecnicosea.model.dto.AnalystCoverageResponseDTO;
 import com.isabela.testetecnicosea.model.dto.CreateInternalUserRequestDTO;
 import com.isabela.testetecnicosea.model.dto.UserResponseDTO;
 import com.isabela.testetecnicosea.model.entity.User;
@@ -11,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -36,6 +35,29 @@ public class AdminUserController {
     ) {
         User user = adminUserService.createInternalUser(internalUserRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userMapper.toResponse(user));
+    }
+
+
+    @PutMapping(
+            path = "/users/{id}/coverage",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AnalystCoverageResponseDTO> updateCoverage(
+            @PathVariable Integer id,
+            @Valid @RequestBody AnalystCoverageRequestDTO request
+    ) {
+        AnalystCoverageResponseDTO response = adminUserService.updateCoverage(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping(path = "/users/{id}/coverage", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<AnalystCoverageResponseDTO> getCoverage(
+            @PathVariable Integer id
+    ) {
+        AnalystCoverageResponseDTO response = adminUserService.getCoverage(id);
+        return ResponseEntity.ok(response);
     }
 
 }
