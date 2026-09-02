@@ -1,5 +1,6 @@
 package com.isabela.testetecnicosea.controller;
 
+import com.isabela.testetecnicosea.aop.Audit;
 import com.isabela.testetecnicosea.model.dto.AnalystDecisionRequestDTO;
 import com.isabela.testetecnicosea.model.dto.SolicitationResponseDTO;
 import com.isabela.testetecnicosea.model.dto.SolicitationSearchRequestDTO;
@@ -55,6 +56,7 @@ public class AnalystController {
     }
 
 
+    @Audit(action = "DECIDE_SOLICITATION")
     @PostMapping(
             path = "/{id}/decide",
             consumes = MediaType.APPLICATION_JSON_VALUE,

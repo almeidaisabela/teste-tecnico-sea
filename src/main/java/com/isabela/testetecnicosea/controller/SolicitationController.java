@@ -1,5 +1,6 @@
 package com.isabela.testetecnicosea.controller;
 
+import com.isabela.testetecnicosea.aop.Audit;
 import com.isabela.testetecnicosea.model.dto.SolicitationResponseDTO;
 import com.isabela.testetecnicosea.model.dto.SolicitationStep1RequestDTO;
 import com.isabela.testetecnicosea.model.dto.SolicitationStep2RequestDTO;
@@ -30,7 +31,9 @@ public class SolicitationController {
     private final SolicitationService solicitationService;
     private final SolicitationMapper solicitationMapper;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ResponseEntity<SolicitationResponseDTO> create(
             @AuthenticationPrincipal User client
     ) {
@@ -84,6 +87,7 @@ public class SolicitationController {
     }
 
 
+    @Audit(action = "SUBMIT_SOLICITATION")
     @PostMapping(path = "/{id}/submit", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SolicitationResponseDTO> submit(
             @PathVariable Integer id,

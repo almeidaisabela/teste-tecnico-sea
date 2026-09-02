@@ -1,5 +1,6 @@
 package com.isabela.testetecnicosea.controller;
 
+import com.isabela.testetecnicosea.aop.Audit;
 import com.isabela.testetecnicosea.model.dto.AnalystCoverageRequestDTO;
 import com.isabela.testetecnicosea.model.dto.AnalystCoverageResponseDTO;
 import com.isabela.testetecnicosea.model.dto.CreateInternalUserRequestDTO;
@@ -27,6 +28,7 @@ public class AdminUserController {
     private final UserMapper userMapper;
     private final SolicitationService solicitationService;
 
+    @Audit(action = "CREATE_USER")
     @PostMapping(
             path = "/users",
             produces = MediaType.APPLICATION_JSON_VALUE,
