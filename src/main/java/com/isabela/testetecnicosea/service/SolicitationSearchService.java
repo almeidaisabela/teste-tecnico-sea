@@ -35,6 +35,15 @@ public class SolicitationSearchService {
     public SolicitationSearchResponseDTO search(SolicitationSearchRequestDTO request, User requester) {
         int page = request.page() != null ? request.page() : 0;
         int size = request.size() != null ? request.size() : 20;
+
+        if (page < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Page deve ser >= 0");
+        }
+
+        if (size < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Size deve ser >= 1");
+        }
+
         Criteria criteria = new Criteria();
 
         if (request.q() != null && !request.q().isBlank()) {

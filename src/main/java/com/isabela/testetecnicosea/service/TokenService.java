@@ -7,7 +7,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.isabela.testetecnicosea.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -31,7 +33,11 @@ public class TokenService {
                     .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("Erro ao gerar token", exception);
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Erro ao gerar token de autenticação",
+                    exception
+            );
         }
     }
 

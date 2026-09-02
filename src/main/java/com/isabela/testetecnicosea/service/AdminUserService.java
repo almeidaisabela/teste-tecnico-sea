@@ -31,11 +31,11 @@ public class AdminUserService {
 
     public User createInternalUser(CreateInternalUserRequestDTO request) {
         if (request.role() == UserRole.CLIENT) {
-            throw new IllegalArgumentException("Use /auth/register para criar usuários CLIENT.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Use /auth/register para criar usuários CLIENT");
         }
 
         if (userRepository.existsByEmail(request.email())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado no sistema.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já cadastrado no sistema");
         }
 
         String hash = passwordEncoder.encode(request.password());
@@ -46,10 +46,10 @@ public class AdminUserService {
 
     public AnalystCoverageResponseDTO updateCoverage(Integer analystId, AnalystCoverageRequestDTO request) {
         User analyst = userRepository.findById(analystId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
         if (analyst.getRole() != UserRole.ANALYST) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Apenas usuários ANALYST podem ter cobertura de UF.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Apenas usuários ANALYST podem ter cobertura de UF");
         }
 
         List<AnalystCoverageState> existentes = analystCoverageStateRepository.findByUserId(analystId);
@@ -73,7 +73,7 @@ public class AdminUserService {
 
     public AnalystCoverageResponseDTO getCoverage(Integer analystId) {
         userRepository.findById(analystId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
         List<State> states = analystCoverageStateRepository.findByUserId(analystId)
                 .stream()
