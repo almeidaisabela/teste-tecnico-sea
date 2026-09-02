@@ -12,3 +12,15 @@ services:
       - ${POSTGRES_PORT}:5432
     volumes:
       - ./pg_data:/var/lib/postgresql
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.4.5
+    container_name: teste_tecnico_sea_es
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - ${ELASTICSEARCH_PORT}:9200
+    volumes:
+      - ./es_data:/usr/share/elasticsearch/data

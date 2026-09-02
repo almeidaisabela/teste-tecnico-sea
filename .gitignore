@@ -35,3 +35,5 @@ build/
 pg_data/
 
 .env
+
+es_data/

@@ -29,10 +29,13 @@ public class SolicitationService {
     private final SolicitationRepository solicitationRepository;
     private final SolicitationMapper solicitationMapper;
     private final CepService cepService;
+    private final SolicitationIndexService solicitationIndexService;
 
     public Solicitation create(User client) {
         Solicitation solicitation = solicitationMapper.toNewEntity(client.getId());
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
@@ -45,7 +48,9 @@ public class SolicitationService {
         }
 
         solicitation.setUpdatedAt(LocalDateTime.now());
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
@@ -72,7 +77,9 @@ public class SolicitationService {
         }
 
         solicitation.setUpdatedAt(LocalDateTime.now());
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
@@ -100,7 +107,9 @@ public class SolicitationService {
         }
 
         solicitation.setUpdatedAt(LocalDateTime.now());
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
@@ -118,7 +127,9 @@ public class SolicitationService {
         solicitation.setStatus(SolicitationStatus.SUBMITTED);
         solicitation.setSubmittedAt(LocalDateTime.now());
         solicitation.setUpdatedAt(LocalDateTime.now());
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 

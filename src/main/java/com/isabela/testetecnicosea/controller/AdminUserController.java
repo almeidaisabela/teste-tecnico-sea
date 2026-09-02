@@ -7,6 +7,7 @@ import com.isabela.testetecnicosea.model.dto.UserResponseDTO;
 import com.isabela.testetecnicosea.model.entity.User;
 import com.isabela.testetecnicosea.model.mapper.UserMapper;
 import com.isabela.testetecnicosea.service.AdminUserService;
+import com.isabela.testetecnicosea.service.SolicitationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AdminUserController {
 
     private final AdminUserService adminUserService;
     private final UserMapper userMapper;
+    private final SolicitationService solicitationService;
 
     @PostMapping(
             path = "/users",
@@ -59,5 +61,6 @@ public class AdminUserController {
         AnalystCoverageResponseDTO response = adminUserService.getCoverage(id);
         return ResponseEntity.ok(response);
     }
+
 
 }

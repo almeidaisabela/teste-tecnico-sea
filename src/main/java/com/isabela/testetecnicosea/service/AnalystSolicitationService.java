@@ -21,6 +21,7 @@ public class AnalystSolicitationService {
 
     private final SolicitationRepository solicitationRepository;
     private final AnalystCoverageStateRepository coverageRepository;
+    private final SolicitationIndexService solicitationIndexService;
 
     public Solicitation findById(Integer id, User analyst) {
         Solicitation solicitation = solicitationRepository.findById(id)
@@ -44,7 +45,9 @@ public class AnalystSolicitationService {
         solicitation.setStatus(SolicitationStatus.IN_REVIEW);
         solicitation.setUpdatedAt(LocalDateTime.now());
 
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
@@ -70,7 +73,9 @@ public class AnalystSolicitationService {
         solicitation.setAnalyzedAt(LocalDateTime.now());
         solicitation.setUpdatedAt(LocalDateTime.now());
 
-        return solicitationRepository.save(solicitation);
+        Solicitation saved = solicitationRepository.save(solicitation);
+        solicitationIndexService.index(saved);
+        return saved;
     }
 
 
