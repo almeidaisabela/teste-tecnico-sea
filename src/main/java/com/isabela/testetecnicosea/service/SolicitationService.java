@@ -11,6 +11,7 @@ import com.isabela.testetecnicosea.model.enums.SolicitationStatus;
 import com.isabela.testetecnicosea.model.enums.State;
 import com.isabela.testetecnicosea.model.mapper.SolicitationMapper;
 import com.isabela.testetecnicosea.repository.SolicitationRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SolicitationService {
 
     private final SolicitationRepository solicitationRepository;
