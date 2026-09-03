@@ -58,7 +58,6 @@ public class SolicitationService {
 
     public Solicitation saveStep2(Integer id, SolicitationStep2RequestDTO request, User client) {
         Solicitation solicitation = findOwnedDraft(id, client);
-        solicitationMapper.updateStep2(request, solicitation);
 
         if (solicitation.getCurrentStep() < 1) {
             throw new ResponseStatusException(
@@ -68,6 +67,15 @@ public class SolicitationService {
         }
 
         ViaCepResponseDTO adress = cepService.findAdress(request.cep());
+
+        if (adress == null || Boolean.TRUE.equals(adress.erro())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "CEP inválido ou não encontrado"
+            );
+        }
+
+        solicitationMapper.updateStep2(request, solicitation);
 
         solicitation.setStreet(adress.logradouro());
         solicitation.setNeighborhood(adress.bairro());
