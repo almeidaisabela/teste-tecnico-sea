@@ -1,0 +1,11 @@
+target/
+pg_data/
+es_data/
+.git/
+.idea/
+.vscode/
+.mvn/wrapper/maven-wrapper.jar
+*.iml
+HELP.md
+README.md
+.env

@@ -1,4 +1,23 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: teste_tecnico_sea_app
+    env_file:
+      - .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/solicitacoes_de_atendimento
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      ELASTICSEARCH_URI: http://elasticsearch:9200
+      JWT_SECRET: ${JWT_SECRET:-my-secret-key}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+      - elasticsearch
+
   postgresql:
     image: postgres:18-alpine
     env_file:
